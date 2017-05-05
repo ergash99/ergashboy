@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <context:annotation-config />
+    <context:property-placeholder
+            location="/WEB-INF/config/database.properties,
+             /WEB-INF/config/template.properties"/>
+
+    <bean id="appConfiguration" class="uz.tiu.daily.common.configuration.AppConfiguration">
+        <property name="roleConfiguration">
+            <bean class="uz.tiu.daily.common.configuration.RoleConfiguration"
+                p:configurationResource = "/../config/roles.xml"
+                p:configurationResourceExt = "/../config/roles-ext.xml"/>
+        </property>
+        <property name="authConfiguration">
+            <bean class="uz.tiu.daily.common.configuration.AuthConfiguration"
+                p:configurationResource = "/../config/auth.properties"
+                p:configurationResourceExt = "/../config/auth-ext.properties"/>
+        </property>
+        <property name="fileTypeConfiguration">
+            <bean class="uz.tiu.daily.common.configuration.FileTypeConfiguration"
+                p:configurationResource = "/../config/file-types.xml"
+                p:configurationResourceExt = "/../config/file-types-ext.xml"/>
+        </property>
+        <property name="repositoryConfiguration">
+            <bean class="uz.tiu.daily.common.configuration.RepositoryConfiguration"
+                p:configurationResource="/../config/repository.properties"
+                p:configurationResourceExt="/../config/repository-ext.properties"/>
+        </property>
+
+        <property name="reportConfiguration">
+            <bean class="uz.tiu.daily.common.configuration.ReportConfiguration"
+                p:configurationResource = "/../config/report.properties"
+                p:configurationResourceExt = "/../config/report-ext.properties"/>
+        </property>
+
+    </bean>
+</beans>

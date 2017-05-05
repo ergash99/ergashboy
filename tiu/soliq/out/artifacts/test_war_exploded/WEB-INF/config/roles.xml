@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <roles>
+        <role id="3">
+            <type>ROLE_OPERATOR</type>
+            <name>Operator</name>
+            <description>Operator module</description>
+        </role>
+        <role id="2">
+            <type>ROLE_ADMIN</type>
+            <name>Admin</name>
+            <description>Admin module</description>
+        </role>
+        <role id="777">
+            <type>ROLE_SYSADMIN</type>
+            <name>System Administrator</name>
+            <description>System administrator. Emergency access to the system. Has all available permissions</description>
+        </role>
+    </roles>
+</configuration>
