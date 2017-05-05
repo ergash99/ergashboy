@@ -68,9 +68,7 @@
         <entry file="file://$PROJECT_DIR$/../tiu-web/src/main/java/uz/tiu/daily/services/smetaMenuServices/Smeta_holatiServices.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="16" column="8" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="918">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,7 +76,7 @@
       <file leaf-file-name="nav.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../tiu-web/src/main/webapp/WEB-INF/templates/tiu/nav.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="52" selection-start="5244" selection-end="5244" vertical-scroll-proportion="0.61142856" vertical-offset="1741" max-vertical-offset="2159">
+            <state line="61" column="48" selection-start="3292" selection-end="3292" vertical-scroll-proportion="0.75714284" vertical-offset="772" max-vertical-offset="2159">
               <folding />
             </state>
           </provider>
@@ -740,12 +738,12 @@
       <created>1493981466456</created>
       <updated>1493981466456</updated>
       <workItem from="1493981471874" duration="78000" />
-      <workItem from="1493981554575" duration="1395000" />
+      <workItem from="1493981554575" duration="4371000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1473000" />
+    <option name="totallyTimeSpent" value="4449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
@@ -808,15 +806,13 @@
     <entry file="file://$PROJECT_DIR$/../tiu-web/src/main/java/uz/tiu/daily/services/smetaMenuServices/Smeta_holatiServices.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="8" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="918">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../tiu-web/src/main/webapp/WEB-INF/templates/tiu/nav.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="52" selection-start="5244" selection-end="5244" vertical-scroll-proportion="0.61142856" vertical-offset="1741" max-vertical-offset="2159">
+        <state line="61" column="48" selection-start="3292" selection-end="3292" vertical-scroll-proportion="0.75714284" vertical-offset="772" max-vertical-offset="2159">
           <folding />
         </state>
       </provider>

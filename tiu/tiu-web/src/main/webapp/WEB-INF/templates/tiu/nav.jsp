@@ -20,7 +20,7 @@
 
     <div  style="margin-top: -10px" >
 
-        <img id="logo" src="../../../static/img/logo.jpg" alt="logo" class="logo-default" style="width: 100%; height: 13%">
+        <img id="logo" src="../../../static/img/logo.jpg" alt="logo" class="logo-default" style="width: 100%; height: 10%">
 
         <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
             <i>menu</i>
@@ -53,11 +53,11 @@
                                 <li><a href="<%=ReestrController.URL_REESTR%>">reestr</a></li>
                                 <li><a href="">Admin</a></li>
                                 <li><a href="<%=HisobotController.URL_HISOBOT%>">Hisobotlar</a></li>
-                            </ul>
+                </ul>
                             <style>
                     #menu {
-                        width: 52%;
-                        margin:10px 280px 0 -260px;
+                        width: 60%;
+                        margin:10px 300px 0 -210px;
                         border: 1px solid #222;
                         -moz-border-radius: 6px;
                         -webkit-border-radius: 6px;
