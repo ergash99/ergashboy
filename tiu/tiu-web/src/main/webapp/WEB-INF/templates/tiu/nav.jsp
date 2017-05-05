@@ -56,7 +56,7 @@
                             </ul>
                             <style>
                     #menu {
-                        width: 53%;
+                        width: 52%;
                         margin:10px 280px 0 -260px;
                         border: 1px solid #222;
                         -moz-border-radius: 6px;
