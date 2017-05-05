@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <named-query name="FileStorage.getById">
+        <query>
+            SELECT
+            FileStorage
+            from
+            FileStorage fileStorage
+            where fileStorage.id = :id
+        </query>
+    </named-query>
+
+    <!-- User -->
+
+    <named-query name="User.findByLogin">
+        <query>
+            SELECT
+            u
+            from
+            User u
+            where
+            u.login = :login
+            and
+            u.status = :status
+        </query>
+    </named-query>
+
+    <named-query name="UserRole.findByUserId">
+        <query>
+            SELECT
+            userRole
+            from
+            UserRole userRole
+            where userRole.userId = :userId
+        </query>
+    </named-query>
+    <named-query name="User.findALL">
+        <query>
+            select
+            u
+            from
+            User u
+            where
+            u.status = 'A'
+            and
+            u.managers != null
+        </query>
+
+    </named-query>
+    <named-query name="Reestr.findALL">
+        <query>
+            select
+            u
+            from
+            Reestr u
+            where
+            u.status = 'A'
+
+        </query>
+
+    </named-query>
+    <named-query name="Smeta.findALL">
+        <query>
+            select
+            u
+            from
+            Smeta u
+            where
+            u.status = 'A'
+
+
+        </query>
+
+    </named-query>
+    <named-query name="Hisobot.findALL">
+        <query>
+            select
+            u
+            from
+            Hisobot u
+            where
+            u.status = 'A'
+
+
+        </query>
+
+    </named-query>
+    <named-query name="Admin.findALL">
+        <query>
+            select
+            u
+            from
+            Admin u
+            where
+            u.status = 'A'
+
+
+        </query>
+
+    </named-query>
+    <named-query name="Dalolatnoma.findALL">
+        <query>
+            select
+            u
+            from
+            Dalolatnoma u
+            where
+            u.status = 'A'
+
+        </query>
+
+    </named-query>
+
+
+
+
+    <named-query name="Test.findALL">
+        <query>
+            select
+            u
+            from
+            Test u
+            where
+            u.status = 'A'
+
+        </query>
+
+    </named-query>
+    <named-query name="Users.countAll">
+        <query>
+            select
+            count(s)
+            from
+            User s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Dalolatnoma.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Dalolatnoma s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Reestr.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Reestr s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Test.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Test s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Daily.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Daily s
+        </query>
+    </named-query>
+    <named-query name="Student.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Students s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Smeta.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Smeta s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Hisibot.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Hisobot s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+    <named-query name="Admin.countAll">
+        <query>
+            select
+            count(s)
+            from
+            Admin s
+            where
+            s.status = 'A'
+        </query>
+    </named-query>
+</entity-mappings>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        ">
+
+<!--
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${database.jdbc.driverClassName}" />
+        <property name="url" value="${database.jdbc.url}" />
+        <property name="username" value="${database.jdbc.username}" />
+        <property name="password" value="${database.jdbc.password}" />
+    </bean>
+-->
+
+    <!-- A datasource with pooling capabalities for the ACL module -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close"
+          p:driverClass="${database.jdbc.driverClassName}"
+          p:jdbcUrl="${database.jdbc.url}"
+          p:user="${database.jdbc.username}"
+          p:password="${database.jdbc.password}"
+          p:acquireIncrement="5"
+          p:idleConnectionTestPeriod="60"
+          p:maxPoolSize="100"
+          p:maxStatements="50"
+          p:minPoolSize="3" />
+
+    <!--Had to add this to enable XML based queries -->
+    <bean id="pum" class="org.springframework.data.jpa.support.MergingPersistenceUnitManager">
+        <property name="persistenceXmlLocations">
+            <list>
+                <value>/WEB-INF/spring/spring-persistence.xml</value>
+                <!--<value>classpath*:META-INF/spring-persistence.xml</value>-->
+            </list>
+        </property>
+        <property name="defaultDataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="tiuPU"/>
+        <property name="persistenceUnitManager" ref="pum"/>
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter" ref="jpaAdapter"/>
+        <property name="packagesToScan" value="uz.tiu.daily.persistence" />
+
+        <property name="jpaProperties">
+        <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.max_fetch_depth">3</prop>
+                <prop key="hibernate.jdbc.fetch_size">50</prop>
+                <prop key="hibernate.jdbc.batch_size">10</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+<!--
+                <prop key="hibernate.default_schema">ehujjat</prop>
+                <prop key="hibernate.default_catalog">ehujjat</prop>
+-->
+        </props>
+        </property>
+    </bean>
+
+    <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="${database.name}"/>
+        <property name="databasePlatform" value="${database.hibernate.dialect}"/>
+        <property name="generateDdl" value="true"/>
+        <property name="showSql" value="false"/>
+    </bean>
+
+
+    <context:annotation-config/>
+
+    <!-- A transaction manager for working with Hibernate SessionFactories -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--<bean class="uzgps.service.DbInit">
+        <property name="sqlScript" value=""/>
+        <property name="usesSequence" value="true"/>
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>-->
+
+</beans>

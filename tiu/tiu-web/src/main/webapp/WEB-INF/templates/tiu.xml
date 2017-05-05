@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <definition name="baseLayout" template="/WEB-INF/templates/tiu/layout.jsp">
+         <put-attribute name="heads" value=""/>
+        <put-attribute name="page-top" value=""/>
+        <put-attribute name="header" value="/WEB-INF/templates/tiu/header.jsp"/>
+        <put-attribute name="sidebar" value="/WEB-INF/templates/tiu/sidebar.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/templates/tiu/footer.jsp"/>
+    </definition>
+
+    <definition name="security/*" template="/WEB-INF/templates/tiu/layout-login.jsp">
+         <put-attribute name="content" value="/WEB-INF/jsp/security/{1}.jsp"/>
+    </definition>
+
+
+
+
+    <definition name="admin/*" extends="baseLayout">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/{1}.jsp"/>
+        <put-attribute name="heads" value="/WEB-INF/jsp/admin/admin-heads.jsp"/>
+        <!--<put-attribute name="page-top" value="/WEB-INF/jsp/admin/admin-page-top.jsp"/>-->
+    </definition>
+
+
+
+    <definition name="admin/*/*" extends="baseLayout">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/{1}/{2}.jsp"/>
+        <put-attribute name="heads" value="/WEB-INF/jsp/admin/admin-heads.jsp"/>
+        <!--<put-attribute name="page-top" value="/WEB-INF/jsp/admin/admin-page-top.jsp"/>-->
+    </definition>
+    <definition name="admin/*/ajax*" template="/WEB-INF/templates/tiu/layout-ajax.jsp">
+        <put-attribute name="ajax-content" value="/WEB-INF/jsp/admin/{1}/ajax{2}.jsp"/>
+    </definition>
+
+
+</tiles-definitions>

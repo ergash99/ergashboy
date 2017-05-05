@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--
+         Register Annotation-based Post Processing Beans and @Components and @Controller to deploy as beans
+
+         Don't include packages that would pick up beans from the parent
+         application context the beans from the application-context will be
+         available here. Don't instantiate them again
+     -->
+
+    <context:component-scan base-package="uz.tiu.daily.common"/>
+    <context:component-scan base-package="uz.tiu.daily.controllers.security"/>
+    <context:component-scan base-package="uz.tiu.daily.controllers.main"/>
+    <context:component-scan base-package="uz.tiu.daily.controllers.admin"/>
+    <context:component-scan base-package="uz.tiu.daily.controllers.admin.daily"/>
+    <context:component-scan base-package="uz.tiu.daily.controllers.security"/>
+    <context:component-scan base-package="uz.tiu.daily.services"/>
+
+    <!-- Configures the @Controller programming model -->
+    <!--<mvc:annotation-driven/>-->
+
+    <!--I18N support-->
+    <!--Bundle format: <bundlename>+<specific language>+<specific country>+<specific variant>-->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:i18n/messages" />
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="language" />
+    </bean>
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="ru" />
+    </bean>-->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="uz_LAT" />
+        <property name="cookieName" value="locale"></property>
+        <property name="cookieMaxAge" value="1209600"></property>
+    </bean>
+
+    <!--End of I18N Support-->
+
+
+    <!-- Theme Support -->
+    <bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="themes/theme-" />
+    </bean>
+    <bean id="themeChangeInterceptor" class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+        <property name="paramName" value="theme" />
+    </bean>
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+        <property name="defaultThemeName" value="default" />
+    </bean>
+    <!--
+        <bean id="themeResolver" class="org.springframework.web.servlet.theme.FixedThemeResolver">
+            <property name="defaultThemeName" value="default" />
+        </bean>
+    -->
+
+    <bean id="handlerMapping"
+          class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor" />
+                <ref bean="themeChangeInterceptor" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- Resolves problem with mvc:annotation-driven -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="language" />
+        </bean>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+            <property name="paramName" value="theme" />
+        </bean>
+        <!-- attaching the anticipated Open Session in View pattern -->
+        <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor"/>
+    </mvc:interceptors>
+
+    <!--Support for tiles-->
+    <bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions" value="/WEB-INF/templates/${template.name}.xml"/>
+        <!--
+                <property name="tilesProperties">
+                    <props>
+                        <prop key="org.apache.tiles.evaluator.AttributeEvaluator">org.apache.tiles.evaluator.el.ELAttributeEvaluator
+                        </prop>
+                    </props>
+                </property>
+        -->
+
+        <!-- resolving preparer names as Spring bean definition names -->
+        <property name="preparerFactoryClass"
+                  value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"/>
+    </bean>
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+        <property name="requestContextAttribute" value="requestContext"/>
+        <property name="order" value="1"/>
+    </bean>
+
+    <!-- Configures the @Controller programming model -->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
+
+    <!--Jackson 2 mapper for JSON responses-->
+    <bean id="jsonMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+
+    <!-- REST -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false" />
+        <property name="favorParameter" value="true" />
+        <property name="mediaTypes" >
+            <value>
+                json=application/json
+                xml=application/xml
+            </value>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1" />
+
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <!-- JSON View -->
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+                    <property name="objectMapper" ref="jsonMapper"/>
+                </bean>
+
+                <!-- XML View -->
+
+            </list>
+        </property>
+    </bean>
+
+    <!--HTML view-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--Support for jasper reports-->
+
+
+    <!--Support for file upload-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+    <!--Support for file download-->
+    <bean id="httpFileSender" class="uz.tiu.daily.common.HttpFileSender">
+        <property name="streamBufferSize" value="32768"/>
+        <property name="supportGZIP" value="true"/>
+    </bean>
+
+    <!--Support for handling of web context events -->
+    <bean class="uz.tiu.daily.common.ApplicationListenerBean">
+        <property name="launchedMap">
+            <map>
+                <!--doing init operations on context event number 2-->
+                <entry key="2">
+                    <list>
+                        <!--<bean class="uz.teach.center.service.DbInit"/>-->
+                        <!--<bean class="uz.teach.center.service.CoreInit"/>-->
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <context:annotation-config />
+    <context:property-placeholder
+            location="/WEB-INF/config/template.properties,
+            /WEB-INF/config/database.properties"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--<import resource="spring-jasper-view.xml" />-->
+    <!--<import resource="spring-core.xml"/>-->
+    <!--<import resource="spring-ws-heart-beat.xml"/>-->
+
+</beans>

@@ -1,0 +1,14 @@
+1. File->Project structure: add JDK
+2. Add Tomcat (or other server) to Run/Debug configuration
+3. File->Settings: File encodings
+ - IDE Encoding:UTF-8
+ - Default encoding for properties files: UTF8
+ - check Transparent native-to-ascii conversion
+4. File->Settings: Maven - Maven home directory
+5. Projects setting: Facets:
+- add Spring
+- add JPA, descriptors - persistence.xml, point to spring-persistence.xml
+- add data source and set in JPA facet
+- default JPA Provider : Hibernate
+6. Enable Subversion integration: VCS - enable ...
+- exclude settings from commit: point to .idea folder and uz.netex.uzgps.billing.iml file, VCS->Subversion->Ignore

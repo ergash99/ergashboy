@@ -1,0 +1,17 @@
+#tab-search{
+    padding: 10px;
+    /*border: 1px solid #ccc;*/
+    border-radius: 0 3px 3px 3px;
+    background: rgba(92, 172, 226, 0.5);
+}
+ #tab-active ul  .active a{
+    border-color: #ccc;
+    border-bottom-color: #a7d0ed;
+    background: rgba(92, 172, 226, 0.5);
+}
+ .flag-uz{
+    background-image: url("../img/flag-uz.png");
+ }
+.flag-ru{
+    background-image: url("../img/flag-ru.png");
+}

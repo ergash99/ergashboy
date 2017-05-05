@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<!--
+
+    Configuration file for UrlRewriteFilter
+    http://www.tuckey.org/urlrewrite/
+
+-->
+
+
+<urlrewrite>
+
+    <rule>
+        <from>/static/([0-9]*)/js/</from>
+        <to>/static/js/</to>
+    </rule>
+    <rule>
+        <from>/static/([0-9]*)/css/</from>
+        <to>/static/css/</to>
+    </rule>
+    <rule>
+        <from>/static/([0-9]*)/images/</from>
+        <to>/static/images/</to>
+    </rule>
+    <rule>
+        <from>/static/([0-9]*)/sounds/</from>
+        <to>/static/sounds/</to>
+    </rule>
+</urlrewrite>
+
+     
